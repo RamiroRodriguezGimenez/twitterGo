@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"strings"
 
@@ -20,6 +21,7 @@ func main() {
 
 func EjecutoLambda(ctx context.Context, request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 	var res *events.APIGatewayProxyResponse
+	fmt.Println("Inicializo lambda")
 
 	awsgo.InicializoAWS()
 
@@ -45,6 +47,7 @@ func EjecutoLambda(ctx context.Context, request events.APIGatewayProxyRequest) (
 		}
 		return res, nil
 	}
+	fmt.Println("secrets y entornos OK")
 
 	path := strings.Replace(request.PathParameters["twittergo"], os.Getenv("UrlPrefix"), "", -1)
 
@@ -57,6 +60,7 @@ func EjecutoLambda(ctx context.Context, request events.APIGatewayProxyRequest) (
 	awsgo.Ctx = context.WithValue(awsgo.Ctx, models.Key("jwtsign"), SecretModel.JWTSign)
 	awsgo.Ctx = context.WithValue(awsgo.Ctx, models.Key("body"), request.Body)
 	awsgo.Ctx = context.WithValue(awsgo.Ctx, models.Key("bucketName"), os.Getenv("BucketName"))
+	fmt.Println("contexto cargado")
 
 	//chequeo conexion a la base de datos o conecto la base de datos
 	err = bd.ConectarBD(awsgo.Ctx)
