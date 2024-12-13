@@ -25,12 +25,12 @@ func ConectarBD(ctx context.Context) error {
 		fmt.Println(err.Error())
 		return err
 	}
-
-	err = client.Ping(ctx, nil)
-	if err != nil {
-		fmt.Println(err.Error())
-		return err
-	}
+	/*
+		err = client.Ping(ctx, nil)
+		if err != nil {
+			fmt.Println(err.Error())
+			return err
+		}*/
 
 	fmt.Println("Conexion exitosa con la BD")
 	MongoCN = client
