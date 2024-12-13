@@ -16,7 +16,7 @@ func ConectarBD(ctx context.Context) error {
 	user := ctx.Value(models.Key("user")).(string)
 	passwd := ctx.Value(models.Key("password")).(string)
 	host := ctx.Value(models.Key("host")).(string)
-	connStr := fmt.Sprintf("mongoddb+srv://%s:%s@%s/?retryWrites=true&w=majority", user, passwd, host)
+	connStr := fmt.Sprintf("mongodb+srv://%s:%s@%s/?retryWrites=true&w=majority", user, passwd, host)
 
 	var clientOpptions = options.Client().ApplyURI(connStr)
 	client, err := mongo.Connect(ctx, clientOpptions)
