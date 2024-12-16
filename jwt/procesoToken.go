@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	jwt "github.com/golang-jwt/jwt/v5"
+	"github.com/twitterGo/bd"
 	"github.com/twitterGo/models"
 )
 
@@ -26,6 +27,12 @@ func ProcesoToken(tk string, JWTSign string) (*models.Claim, bool, string, error
 		return miClave, nil
 	})
 	if err == nil {
+		_, encontrado, _ := bd.ChequeoYaExisteUsuario(claims.Email)
+		if encontrado {
+			Email = claims.Email
+			IDUsuario = claims.ID.Hex()
+		}
+		return &claims, encontrado, IDUsuario, nil
 
 	}
 
