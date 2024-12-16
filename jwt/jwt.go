@@ -2,6 +2,7 @@ package jwt
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	jwt "github.com/golang-jwt/jwt/v5"
@@ -10,6 +11,7 @@ import (
 
 func GeneroJWT(ctx context.Context, t models.Usuario) (string, error) {
 	jwtSign := ctx.Value(models.Key("jwtSign")).(string)
+	fmt.Println("jwtSign: " + jwtSign)
 	miClave := []byte(jwtSign)
 
 	payload := jwt.MapClaims{
