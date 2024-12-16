@@ -24,12 +24,12 @@ func Login(ctx context.Context) models.RespApi {
 		return r
 	}
 	if len(t.Email) == 0 {
-		r.Message = "Email del usuario es requerido " + err.Error()
+		r.Message = "Email del usuario es requerido "
 		return r
 	}
 	userData, existe := bd.IntentoLogin(t.Email, t.Password)
 	if !existe {
-		r.Message = "Usuario y/o contraseña invalidos " + err.Error()
+		r.Message = "Usuario y/o contraseña invalidos "
 		return r
 	}
 	jwtKey, err := jwt.GeneroJWT(ctx, userData)
@@ -45,7 +45,7 @@ func Login(ctx context.Context) models.RespApi {
 	token, err2 := json.Marshal(resp)
 
 	if err2 != nil {
-		r.Message = "Ocirrio un error al intentar formatear el token a json " + err.Error()
+		r.Message = "Ocirrio un error al intentar formatear el token a json " + err2.Error()
 		return r
 	}
 
